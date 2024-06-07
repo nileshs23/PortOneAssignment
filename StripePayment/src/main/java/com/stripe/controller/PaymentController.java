@@ -35,7 +35,7 @@ import com.stripe.param.RefundCreateParams;
 @RequestMapping("/api/v1")
 public class PaymentController {
 	
-//	Create Payment Id To Checout Order
+//	Create Payment Id To Checkout Order
 	@PostMapping("/create_intent")
 	public ResponseEntity<PaymentDTO> makePayment(@RequestBody PaymentDTO data, 
 													@RequestParam String customerId,
@@ -123,19 +123,6 @@ public class PaymentController {
 		return new ResponseEntity<String>("Confirmed Successfully "+paymentId,HttpStatus.OK);
 	}
 	
-//	public String updateIntent(@RequestParam String paymentId) throws StripeException {
-//		Stripe.apiKey = apiKey;
-//
-//		PaymentIntent resource = PaymentIntent.retrieve(paymentId);
-//		
-//		resource.setStatus();
-//		PaymentIntentUpdateParams params =
-//		  PaymentIntentUpdateParams.builder().putMetadata("order_id", "6735").build();
-//
-//		PaymentIntent paymentIntent = resource.update(params);
-//		
-//		return "Success";
-//	}
 	
 	@PostMapping("/capture_intent")
 	public ResponseEntity<String> captureIntent(@RequestParam String paymentId,@RequestParam Long amt,@RequestParam String apiKey) throws StripeException {
@@ -169,32 +156,4 @@ public class PaymentController {
 //		System.err.println(refund);
 		return new ResponseEntity<String>("Refunded Successfully "+paymentId,HttpStatus.ACCEPTED);
 	}
-	
-	
-	
-//	@PostMapping("/card")
-//	public CardDTO createCard(@RequestBody CardDTO model) throws StripeException {
-//		Stripe.apiKey = apiKey;
-//		Map<String, Object> card = new HashMap<>();
-//		
-//		card.put("number",model.getCardNumber());
-//		card.put("exp_month",Integer.parseInt(model.getExpMonth()));
-//		card.put("exp_year",Integer.parseInt(model.getExpYear()));
-//		card.put("cvc",model.getCvc());
-//		
-//		Map<String, Object> params = new HashMap<>();
-//		params.put("card", card);
-//		Token token =  Token.create(params);
-//		
-//		if(token != null && token.getId() != null) {
-//			model.setSuccess(true);
-//			model.setToken(token.getId());
-//		}
-//		
-//		return model;
-//		
-//
-//	}
-	
-	
 }
