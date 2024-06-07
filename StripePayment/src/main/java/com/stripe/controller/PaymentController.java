@@ -1,7 +1,9 @@
 package com.stripe.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.PaymentIntentCollection;
+import com.stripe.model.PaymentMethod;
 import com.stripe.model.Refund;
 import com.stripe.models.PaymentDTO;
 import com.stripe.param.PaymentIntentCaptureParams;
 import com.stripe.param.PaymentIntentConfirmParams;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentIntentListParams;
+import com.stripe.param.PaymentMethodAttachParams;
+import com.stripe.param.PaymentMethodCreateParams;
+import com.stripe.param.PaymentMethodListParams;
 import com.stripe.param.RefundCreateParams;
 
 @RestController
@@ -35,14 +42,27 @@ public class PaymentController {
 													@RequestParam String apiKey
 													) throws StripeException {
 		Stripe.apiKey = apiKey;
-
+		
+		// Define the parameters to filter the payment methods by customer and type (card)
+        PaymentMethodListParams params1 = PaymentMethodListParams.builder()
+            .setCustomer(customerId)
+            .setType(PaymentMethodListParams.Type.CARD)
+            .build();
+        
+        List<PaymentMethod> paymentMethods = PaymentMethod.list(params1).getData();
+        
+        String paymentMethodId = paymentMethods.get(0).getId();
+        
+		
 		PaymentIntentCreateParams params =
 				  PaymentIntentCreateParams.builder()
 				    .setAmount(data.getAmount())
 				    .setCurrency(data.getCurrency())
 				    .setCustomer(customerId)
 				    .setReceiptEmail(data.getRecipients_eMail())
-				    .addPaymentMethodType("card")
+				    .setPaymentMethod(paymentMethodId)
+				    .setCaptureMethod(PaymentIntentCreateParams.CaptureMethod.MANUAL)
+				    .setConfirm(false)
 				    .build();
 
 		PaymentIntent paymentIntent = PaymentIntent.create(params);	
@@ -93,7 +113,8 @@ public class PaymentController {
 
 		PaymentIntentConfirmParams params =
 		  PaymentIntentConfirmParams.builder()
-		    .setPaymentMethod("pm_card_visa")
+		    .setPaymentMethod(resource.getPaymentMethod())
+		    .setReturnUrl("https://nileshSolanki.in")
 		    .setReceiptEmail(resource.getReceiptEmail())
 		    .build();
 
@@ -123,8 +144,6 @@ public class PaymentController {
 
 		PaymentIntent resource = PaymentIntent.retrieve(paymentId);
 		
-
-
 		PaymentIntentCaptureParams params = PaymentIntentCaptureParams.builder()
 				.setAmountToCapture(amt)
 				.build();

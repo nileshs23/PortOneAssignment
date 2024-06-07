@@ -18,9 +18,11 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.model.CustomerCollection;
+import com.stripe.model.PaymentSource;
 import com.stripe.models.CustomerDTO;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerListParams;
+import com.stripe.param.PaymentSourceCollectionCreateParams;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -34,9 +36,11 @@ public class CustomerController {
 		  CustomerCreateParams.builder()
 		    .setName(data.getName())
 		    .setEmail(data.getEmail())
+		    .setSource("tok_visa")
 		    .build();
 
 		Customer customer = Customer.create(params);
+		
 		data.setCustomerId(customer.getId());
 		
 		return new ResponseEntity<CustomerDTO>(data,HttpStatus.ACCEPTED);
