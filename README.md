@@ -113,10 +113,10 @@ This Application Consist 2 Modules
 ## API
   
    * POST Save Payment
- ```json
+ ```sh
    http://localhost:8888/api/v1/create_intent?customerId= ??&apiKey=
    ```
- ```json
+ ```sh
  Query Params :
  1. customerId
  2. apiKey
@@ -130,19 +130,19 @@ This Application Consist 2 Modules
   
    * GET List Payments
 
- ```json
+ ```sh
    http://localhost:8888/api/v1/get_intents?apiKey=
    ```
- ```json
+ ```sh
  Query Params :
  1. apiKey
    ```
    * GET Capture
 
- ```json
+ ```sh
   http://localhost:8888/api/v1/capture_intent?paymentId= ?? &apiKey= ??
    ```
- ```json
+ ```sh
  Query Params :
  1. paymentId
  2. apiKey
@@ -155,10 +155,10 @@ This Application Consist 2 Modules
    ```
 * POST confirm
 
- ```json
+ ```sh
    http://localhost:8888/api/v1/confirm_intent?paymentId= ??&apiKey= ??
    ```
- ```diff
+ ```sh
  Query Params :
  1. paymentId
  2. apiKey
@@ -166,13 +166,13 @@ This Application Consist 2 Modules
  
    * POST refund
 
- ```diff
- + http://localhost:8888/api/v1/confirm_intent?paymentId= ??&apiKey= ??
+ ```sh
+ http://localhost:8888/api/v1/confirm_intent?paymentId= ??&apiKey= ??
    ```
- ```diff
- -Query Params :
- -1. paymentId
- -2. apiKey
+ ```sh
+ Query Params :
+ 1. paymentId
+ 2. apiKey
    ````
 
 <!-- ROADMAP -->
