@@ -1,6 +1,6 @@
-package com.stripe.model;
+package com.stripe.models;
 
-public class CustomerData {
+public class CustomerDTO {
 	
 	public String name;
 	public String email;
@@ -8,10 +8,10 @@ public class CustomerData {
 	
 	
 	
-	public CustomerData() {
+	public CustomerDTO() {
 		super();
 	}
-	public CustomerData(String name, String email, String customerId) {
+	public CustomerDTO(String name, String email, String customerId) {
 		super();
 		this.name = name;
 		this.email = email;
