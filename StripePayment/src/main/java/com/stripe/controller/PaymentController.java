@@ -28,6 +28,7 @@ import com.stripe.param.RefundCreateParams;
 @RequestMapping("/api/v1")
 public class PaymentController {
 	
+//	Create Payment Id To Checout Order
 	@PostMapping("/create_intent")
 	public ResponseEntity<PaymentDTO> makePayment(@RequestBody PaymentDTO data, 
 													@RequestParam String customerId,
@@ -53,6 +54,7 @@ public class PaymentController {
 		
 	}
 	
+	//Get All Payments In Database Here We Have Printed Only Top 3 Payments
 	@GetMapping("/get_intents")
 	public ResponseEntity<List<PaymentDTO>> getAllPayments(@RequestParam String apiKey) throws StripeException{
 		
@@ -81,6 +83,8 @@ public class PaymentController {
 		
 	}
 	
+	//Confirming Payment adds Card Details To PaymentId and status is changed from requires_payment_method to succeeded
+	//before refund you must complete payment 
 	@PostMapping("/confirm_intent")
 	public ResponseEntity<String> confirmIntent(@RequestParam String paymentId,@RequestParam String apiKey) throws StripeException {
 		Stripe.apiKey = apiKey;
@@ -93,7 +97,7 @@ public class PaymentController {
 		    .setReceiptEmail(resource.getReceiptEmail())
 		    .build();
 
-		PaymentIntent paymentIntent = resource.confirm(params);
+		resource.confirm(params);
 		
 		return new ResponseEntity<String>("Confirmed Successfully "+paymentId,HttpStatus.OK);
 	}
@@ -132,6 +136,7 @@ public class PaymentController {
 		
 	}
 	
+	//after capturing or confirming payment you can apply for refund
 	@PostMapping("/create_refund")
 	public ResponseEntity<String> refund(@RequestParam String paymentId,@RequestParam String apiKey) throws StripeException {
 		Stripe.apiKey = apiKey;
@@ -141,7 +146,7 @@ public class PaymentController {
 		RefundCreateParams params =
 		  RefundCreateParams.builder().setCharge(paymentIntent.getLatestCharge()).build();
 
-		Refund refund = Refund.create(params);
+		Refund.create(params);
 //		System.err.println(refund);
 		return new ResponseEntity<String>("Refunded Successfully "+paymentId,HttpStatus.ACCEPTED);
 	}
