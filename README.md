@@ -1,4 +1,5 @@
 
+
 <a name="readme-top"></a> 
 
 <!-- PROJECT SHIELDS -->
@@ -35,6 +36,7 @@
       </ul>
     </li>
     <li><a href="#modules">Modules</a></li>
+    <li><a href="#API">API</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributors">Contributors</a></li>
     <li><a href="#references">References</a></li>
@@ -95,21 +97,83 @@ This is an example of how to list things you need to use the software and how to
 ## Modules
 This Application Consist 2 Modules
 
-- Payment Module
-- Customer Module
-
-
-## Customer Module
+## 1. Customer Module
 
 - Based Upon Stripe API Docs.
 - It performs Registration Of Customer
 - Search a customer, Get a list of customers , etc.
-
-## Payment Module
-
+  
+## 2.Payment Module
 - This Module Will Make A Payment Object and store it Using Stripe API.
 - Confirm and Capture payments using various payment methods such as Debit or Credit card, Google Pay, Amazon Pay ,etc.
 - If not satisfied you can always reverse the process that is REFUND.
+
+
+<!-- API -->
+## API
+  
+   * POST Save Payment
+ ```json
+   http://localhost:8888/api/v1/create_intent?customerId= ??&apiKey=
+   ```
+ ```json
+ Query Params :
+ 1. customerId
+ 2. apiKey
+ 
+ Body:
+     {
+    "amount":815,
+    "currency":"usd"
+}
+   ```
+  
+   * GET List Payments
+
+ ```json
+   http://localhost:8888/api/v1/get_intents?apiKey=
+   ```
+ ```json
+ Query Params :
+ 1. apiKey
+   ```
+   * GET Capture
+
+ ```json
+  http://localhost:8888/api/v1/capture_intent?paymentId= ?? &apiKey= ??
+   ```
+ ```json
+ Query Params :
+ 1. paymentId
+ 2. apiKey
+ 
+ Body:
+     {
+    "amount":815,
+    "currency":"usd"
+}
+   ```
+* POST confirm
+
+ ```json
+   http://localhost:8888/api/v1/confirm_intent?paymentId= ??&apiKey= ??
+   ```
+ ```diff
+ Query Params :
+ 1. paymentId
+ 2. apiKey
+   ```
+ 
+   * POST refund
+
+ ```diff
+ + http://localhost:8888/api/v1/confirm_intent?paymentId= ??&apiKey= ??
+   ```
+ ```diff
+ -Query Params :
+ -1. paymentId
+ -2. apiKey
+   ````
 
 <!-- ROADMAP -->
 ## Roadmap
