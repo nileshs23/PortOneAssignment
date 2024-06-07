@@ -89,20 +89,14 @@ This is an example of how to list things you need to use the software and how to
   https://stripe.com/in
    ```
 
-<!-- USAGE EXAMPLES -->
-## Usage
-
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Modules
-This Application Consist 6 Modules
+This Application Consist 2 Modules
 
 - Payment Module
 - Customer Module
-- Product  Registration Module.
 
 
 ## Customer Module
