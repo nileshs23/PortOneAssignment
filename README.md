@@ -4,8 +4,9 @@
 
 <!-- PROJECT SHIELDS -->
 
+
 <p align="center">
-  <img src="![social](https://github.com/nileshs23/PortOneAssignment/assets/53571060/dffa5a8d-d4c4-4b9e-aa60-dcf5aed0527a)" />
+  <img src="![Screenshot (27)](https://github.com/nileshs23/PortOneAssignment/assets/53571060/3a781ded-15d8-41f6-b793-1482ebf6bb9b)" />
 </p>
 
   <p align="center">
